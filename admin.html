@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+
+    <title>Paly Kpop Dance</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Titillium+Web">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=David+Libre">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Hind+Guntur">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Dosis">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arimo">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Hind">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    
+    <!--Loader-->
+    <style>
+    .no-js #loader { display: none;  }
+    .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+    .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(img/loader-64x/Preloader_3.gif) center no-repeat #fff;
+        background-color:#39425A;
+    }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <script>
+        $(window).load(function() {
+            $(".se-pre-con").fadeOut("slow");;
+        });
+    </script>
+    <!--End Loader-->
+
+</head>
+
+<body id="page-top">
+
+    <!--Loader-->
+    <div class="se-pre-con"></div>
+
+    <!--Home-->
+    <header style = "height:50%">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto; margin-bottom:10px;">
+                    <font color = "#FFFFFF"><center>Admin Console</center></font>
+                    <!--<a href="https://palyhacks.typeform.com/to/pa790f" class="btn btn-primary btn-xl page-scroll" style = "margin-top:20px">Apply</a>-->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--Navbar-->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href = "index.html">Home</a></li>
+                    <li><a href = "upcoming.html">Upcoming Events</a></li>
+                    <li><a href = "portfolio.html">Portfolio</a></li>
+                    <li><a id = "adminPanel" class = "hidden" href = "portfolio.html">Admin Console</a></li>
+                    <li><a id = "loginButton" data-popup-open="popup-1" href="#">Login</a></li>
+        
+ 
+                    <!--PopUp-->
+                    <div class="popup" data-popup="popup-1">
+                        <div class="popup-inner">
+                            <h2>Admin Login</h2>
+                            <p>For access to the Admin Console, please input your login information below.</p>
+
+                            <!--Email Text field-->
+                            <div><input id = "email" type = "text" placeholder="Email"></div>
+                            <!--Password Input Field-->
+                            <div style = "padding-bottom:20px" class = "password"><input id = "password" type = "text" placeholder="Password"></div>
+
+                            <p>
+                                <button class = "btn btn-primary btn-xl" id = "btnLogin">Login</button>
+                                <!--Sign Up Button-->
+                                <button id = "btnSignUp" class="btn btn-primary btn-xl">Sign Up</button>
+                                <!--Logout Button-->
+                                <button id = "btnLogout" class="btn btn-primary btn-xl hidden">Log Out</button>
+                                <button class = "btn btn-primary btn-xl" data-popup-close="popup-1" href="#">Close</button>
+                            </p>
+                            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                        </div>
+                    </div>
+                    <!--End Pop Up-->
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--Manage Admin Info: Add Admins, Delete Admins, Profile Images, etc. -->
+    <section class = "bg-same">
+        <div class = "container">
+        <div class="row">
+<!--             <div class="col-sm-8"> -->
+                <h2>Manage Admin Info</h2>
+                <div style = "margin-bottom:10px">
+                    <button id = "addAdmin" class = "btn btn-primary">Add Admin</button>
+<!--                 <hr class = "primary"> -->
+                    <button id = "mngProfile" class = "btn btn-primary">Manage Profile</button>
+                </div>
+                <p style = "color:#000000; margin-bottom:5px">Current Admins: </p>
+                    <ul>
+                        <!--Change to retrieve admin list from Firebase-->
+                        <li>icydragon987@gmail.com - Emily Yu</li>
+                        <li>same</li>
+                    </ul>
+<!--             </div> -->
+<!--             <div class = "col-sm-4" style = "margin-top:9%">
+                <div style = "margin-bottom:5px"><button id = "addAdmin" class = "btn btn-primary">Add Admin</button></div>
+                <button id = "mngProfile" class = "btn btn-primary">Manage Profile</button>
+            </div> -->
+        </div></div>
+    </section>
+
+    <!--Edit Team Name, Logo-->
+    <section class="bg-dark" id="board">
+        <div class = "container">
+	        <div class = "row">
+                <h2>Edit Team Information</h2>
+                <!--SWAP COLORS FOR AESTHETIC-->
+                <button id = "editTeamName" class = "btn btn-white">Edit Team Name</button>
+                <button id = "editTeamName" class = "btn btn-white">Upload Logo</button>
+                <button id = "editTeamName" class = "btn btn-white">Upload Icon</button>
+
+                <div style = "margin-top:15px">
+                    <p>Current Team Name: PAly Kpop!!</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!--Add Post to Upcoming Events-->
+    <section class="bg-same" id="board">
+        <div class = "container">
+            <div class = "row">
+                <h2>Post Updates</h2>
+                <div style = "margin-bottom:5px; margin-top:5px"><input id = "Header" type = "text" placeholder="Header"></div>
+                <div style = "margin-bottom:5px; margin-top:5px"><input id = "Text" type = "text" placeholder="Text"></div>
+                <button id = "editTeamName" class = "btn btn-primary">Post Update</button>
+            </div>
+        </div>
+    </section>
+
+    <!--Add Youtube Video-->
+    <section class="bg-dark" id="board">
+        <div class = "container">
+            <div class = "row">
+                <h2>Add Youtube Video</h2>
+                <input id = "Header" type = "text" placeholder="URL" style = "color: black;">
+                <div style="padding-top:10px"><button id = "editTeamName" class = "btn btn-white">Post Video</button></div>
+            </div>
+        </div>
+    </section>
+
+    <!--Add Image-->
+    <section class="bg-same" id="board">
+        <div class = "container">
+            <div class = "row">
+                <h2>Add Photo</h2>
+                <!--Figure out some way to uplaod photos!!!, maybe use gdrive???-->
+                <button id = "editTeamName" class = "btn btn-primary">Post Photo</button>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="bg-dark">
+        <div class="container">
+            <div>
+                <!--Change Text color to a Faint Grey-->
+                <p style = "margin-left:10%; margin-right:10%"><center>Made by <a href = "https://github.com/ey1031" style = "color:#d4d4d4">Emily Yu</a></center></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="js/creative.min.js"></script>
+<script src="js/app.js"></script>
+
+
+</html>

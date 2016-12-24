@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+
+    <title>Paly Kpop Dance</title>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Titillium+Web">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=David+Libre">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Hind+Guntur">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Dosis">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Orbitron">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arimo">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    
+    <!--Loader-->
+    <style>
+    .no-js #loader { display: none;  }
+    .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+    .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(img/loader-64x/Preloader_3.gif) center no-repeat #fff;
+        background-color:#39425A;
+    }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <script>
+        $(window).load(function() {
+            $(".se-pre-con").fadeOut("slow");;
+        });
+    </script>
+    <!--End Loader-->
+
+</head>
+
+<body id="page-top">
+
+    <!--Loader-->
+    <div class="se-pre-con"></div>
+
+    <!--Home-->
+    <header style = "height:50%">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto; margin-bottom:10px;">
+                    <font color = "#FFFFFF"><center>PALY KPOP DANCE CLUB</center></font>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--Navbar-->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href = "index.html">Home</a></li>
+                    <li><a href = "upcoming.html">Upcoming Events</a></li>
+                    <li><a href = "portfolio.html">Portfolio</a></li>
+                    <li><a id = "adminPanel" class = "hidden" href = "admin.html">Admin Console</a></li>
+                    <li><a id = "loginButton" data-popup-open="popup-1" href="#">Login</a></li>
+        
+ 
+                    <!--PopUp-->
+                    <div class="popup" data-popup="popup-1">
+                        <div class="popup-inner">
+                            <h2>Admin Login</h2>
+                            <p id = "adminText">For access to the Admin Console, please input your login information below.</p>
+
+                            <!--Email Text field-->
+                            <div><input id = "email" type = "text" placeholder="Email"></div>
+                            <!--Password Input Field-->
+                            <div style = "padding-bottom:20px" class = "password"><input id = "password" type = "text" placeholder="Password"></div>
+
+                            <p>
+                                <button class = "btn btn-primary btn-xl" id = "btnLogin">Login</button>
+                                <!--Sign Up Button-->
+                                <button id = "btnSignUp" class="btn btn-primary btn-xl">Sign Up</button>
+                                <!--Logout Button-->
+                                <button id = "btnLogout" class="btn btn-primary btn-xl hidden">Log Out</button>
+                                <button class = "btn btn-primary btn-xl" data-popup-close="popup-1" href="#">Close</button>
+                            </p>
+                            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                        </div>
+                    </div>
+                    <!--End Pop Up-->
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class = "bg-same">
+        <div class = "container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>About Us</h2>
+                <p style = "color:#000000">Paly KPOP teaches choreographies and creates dance covers of various K-pop and English hip hop songs, as well as occasional photoshoots and vocal covers. Dancers, singers, photographers, video/film editors, and music fans are all welcome.</p>
+            </div>
+            <div class = "col-sm-4">
+                <p style = "color:#000000; margin-top:65px;">Club Meetings: 1135AM at Dance Studio!</p>
+            </div>
+        </div></div>
+    </section>
+
+    <section class="bg-dark" id="board">
+        <div class = "container">
+	        <div class = "row">
+                <h2 style = "font-size:30px; margin-bottom:10px; margin-left:2%; margin-right:2%">Club Officers</h2>
+                <hr class = "primary" style = "border-color:#39425A">
+                <div class = "col-lg-2 col-md-4">
+                    <img src = "img/person1.jpg" height="135px" width="135px" style="border-radius: 50%">
+                    <h2 style = "font-size:22px">Vivian Wu</h2>
+                    <p>Vice President</p>
+                </div>
+                <div class = "col-lg-2 col-md-4">
+		            <img src = "img/person1.jpg" height="135px" width="135px" style="border-radius: 50%">
+                    <h2 style = "font-size:22px">Flora Yu</h2>
+                    <p>President</p>
+                </div>
+                <div class = "col-lg-2 col-md-4">
+		            <img src = "img/person1.jpg" height="135px" width="135px" style="border-radius: 50%">
+		            <h2 style = "font-size:22px">Vivian Nguyen</h2>
+		            <p>Vice President</p>
+                </div>
+                <div class = "col-lg-2 col-md-4">
+                    <img src = "img/person1.jpg" height="135px" width="135px" style="border-radius: 50%">
+                    <h2 style = "font-size:22px">Chloe Hong</h2>
+                    <p>Public Relations</p>
+                </div>
+                <div class = "col-lg-2 col-md-4">
+                    <img src = "img/person1.jpg" height="135px" width="135px" style="border-radius: 50%">
+                    <h2 style = "font-size:22px">Emily Yu</h2>
+                    <p>Web</p>
+                </div>
+            </div>
+        </div>
+
+        <div class = "container">
+            <div class = "row">
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark">
+        <div class="container">
+            <div>
+                <p style = "margin-left:10%; margin-right:10%">Made by Kpop Dance Club.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="js/creative.min.js"></script>
+<script src="js/app.js"></script>
+
+
+</html>
