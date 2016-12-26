@@ -17,7 +17,7 @@ $(function() {
     });
 });
 
-(function() {
+
 
 /*
     apiKey: '<your-api-key>',
@@ -29,7 +29,7 @@ $(function() {
 
   //Init Firebase
   var config = {
-     apiKey: '<your-api-key>',
+    apiKey: '<your-api-key>',
     authDomain: '<your-auth-domain>',
     databaseURL: '<your-database-url>',
     storageBucket: '<your-storage-bucket>'
@@ -47,6 +47,23 @@ $(function() {
   const adminPanel = document.getElementById('adminPanel');
   const loginButton = document.getElementById('loginButton');
   const adminText = document.getElementById('adminText');
+
+  const adminInit = document.getElementById('adminInit');
+  const addAdmin = document.getElementById('addAdmin');
+  const adminEmail = document.getElementById('adminEmail');
+  const adminName = document.getElementById('adminName');
+
+  // PreObject
+  const preObject = document.getElementById('object');
+  const DBrefobject = firebase.database().ref().child('admins'); // Create a reference to Firebase Database
+  const DBreflist = DBrefobject.child('email');
+
+  //Sync real time changes; turn on database references
+  DBrefobject.on('value', snap => {
+    //change the inner text of the preObject to the retrieved JSON
+    preObject.innerText = JSON.stringify(snap.val(), null, 3);
+  });
+
   //Firebase Login
     btnLogin.addEventListener('click', e => {
       //Retrieve values for authentication: email, password
@@ -71,7 +88,7 @@ $(function() {
     });
     //End Login
 
-} ());
+
   
   //LogOut
   //Switch to index.html when clicked
@@ -127,11 +144,16 @@ $(function() {
       btnLogout.classList.add('hidden');
     }
     //End Login
+});
+
+// Add Admin Button
+addAdmin.addEventListener('click', e => {
+  var booksRef = firebase.database().ref().child("admins");
+  booksRef.child(adminName.value).set({
+      email: adminEmail.value
   });
+});
 
-
-
-// 6:01 - https://www.youtube.com/watch?v=dBscwaqNPuk
 
 /*
 TODO: 
@@ -139,4 +161,5 @@ Add editing capabilities for names and descriptions for Board
 Add editing capabilities for logo and team name
 Add youtube imbedding from admin panel
 Posting System
+ADJUST AUTHENTICATION - ADMIN STRUCTURE CHANGED 
 */
