@@ -16,7 +16,6 @@
 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Titillium+Web">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=David+Libre">
@@ -67,11 +66,13 @@
             <div class="header-content-inner">
                 <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto; margin-bottom:10px;">
                     <font color = "#FFFFFF"><center>Admin Console</center></font>
-                    <!--<a href="https://palyhacks.typeform.com/to/pa790f" class="btn btn-primary btn-xl page-scroll" style = "margin-top:20px">Apply</a>-->
+                    <!--Add Typed.js to this-->
+                    <div style = "font-size:20px"><font color = "#FFFFFF">Welcome, Admin.</font></div>
                 </div>
             </div>
         </div>
     </header>
+
 
     <!--Navbar-->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -88,13 +89,12 @@
                     <li><a href = "portfolio.html">Portfolio</a></li>
                     <li><a id = "adminPanel" class = "hidden" href = "portfolio.html">Admin Console</a></li>
                     <li><a id = "loginButton" data-popup-open="popup-1" href="#">Login</a></li>
-        
  
                     <!--PopUp-->
                     <div class="popup" data-popup="popup-1">
                         <div class="popup-inner">
                             <h2>Admin Login</h2>
-                            <p>For access to the Admin Console, please input your login information below.</p>
+                            <p id = "adminText">For access to the Admin Console, please input your login information below.</p>
 
                             <!--Email Text field-->
                             <div><input id = "email" type = "text" placeholder="Email"></div>
@@ -123,24 +123,41 @@
     <section class = "bg-same">
         <div class = "container">
         <div class="row">
-<!--             <div class="col-sm-8"> -->
                 <h2>Manage Admin Info</h2>
                 <div style = "margin-bottom:10px">
-                    <button id = "addAdmin" class = "btn btn-primary">Add Admin</button>
-<!--                 <hr class = "primary"> -->
+                        <button id = "adminInit" class = "btn btn-primary" data-popup-open="popup-2" href="#">Add Admin</button>
+                        <!--PopUp-->
+                        <div class="popup" data-popup="popup-2">
+                            <div class="popup-inner">
+                                <h2>Initialize Admin</h2>
+                                <p>To create a new admin account, create a new account with the desired account details. Then, add the username (email) and name of the desired admin account to the field below.</p>
+
+                                <!--Admin Text-->
+                                <div  style = "padding-bottom:20px"><input id = "adminName" type = "text" placeholder="Name"></div>
+                                <div  style = "padding-bottom:20px"><input id = "adminEmail" type = "text" placeholder="Email"></div>
+
+
+                                <p>
+                                    <button class = "btn btn-primary btn-xl" id = "addAdmin">Add Admin</button>
+                                    <button class = "btn btn-primary btn-xl" data-popup-close="popup-2" href="#">Close</button>
+                                </p>
+                                <a class="popup-close" data-popup-close="popup-2" href="#">x</a>
+                            </div>
+                        </div>
+                        <!--End Pop Up-->
+<!--FINISHED UP TO HERE-->
                     <button id = "mngProfile" class = "btn btn-primary">Manage Profile</button>
                 </div>
                 <p style = "color:#000000; margin-bottom:5px">Current Admins: </p>
                     <ul>
+
+                        <pre id = "object">
+                        </pre>
+
                         <!--Change to retrieve admin list from Firebase-->
                         <li>icydragon987@gmail.com - Emily Yu</li>
                         <li>same</li>
                     </ul>
-<!--             </div> -->
-<!--             <div class = "col-sm-4" style = "margin-top:9%">
-                <div style = "margin-bottom:5px"><button id = "addAdmin" class = "btn btn-primary">Add Admin</button></div>
-                <button id = "mngProfile" class = "btn btn-primary">Manage Profile</button>
-            </div> -->
         </div></div>
     </section>
 
