@@ -18,7 +18,6 @@ $(function() {
 });
 
 
-
 /*
     apiKey: '<your-api-key>',
     authDomain: '<your-auth-domain>',
@@ -29,11 +28,11 @@ $(function() {
 
   //Init Firebase
   var config = {
-    apiKey: '<your-api-key>',
-    authDomain: '<your-auth-domain>',
-    databaseURL: '<your-database-url>',
-    storageBucket: '<your-storage-bucket>'
-    messengingSenderId: '<your-messenging-sender-id'
+    apiKey: "AIzaSyDGVjkbqPSe8IH772nmQMoFqaDAOaZVPak",
+    authDomain: "kwebsite-ef4f2.firebaseapp.com",
+      databaseURL: "https://kwebsite-ef4f2.firebaseio.com",
+      storageBucket: "kwebsite-ef4f2.appspot.com",
+      messagingSenderId: "737586793221"
   };
   firebase.initializeApp(config);
 
@@ -53,16 +52,49 @@ $(function() {
   const adminEmail = document.getElementById('adminEmail');
   const adminName = document.getElementById('adminName');
 
+  const testButton = document.getElementById('testButton');
+
   // PreObject
   const preObject = document.getElementById('object');
-  const DBrefobject = firebase.database().ref().child('admins'); // Create a reference to Firebase Database
+  const DBrefobject = firebase.database().ref().child('admins'); // Create a reference to Firebase Database under element admins
   const DBreflist = DBrefobject.child('email');
+  const ulList = document.getElementById('list');
+
+
+  // JSON test button
+  testButton.addEventListener('click', e => {
+
+  });
+
+// retrieve emails of all admins
+  DBrefobject.on('value', snap => {
+    var jsonPre = JSON.stringify(snap.val(), null, 3);
+    var json = JSON.parse(jsonPre);
+
+    console.log(json);
+    for (var key in json) {
+      if (json.hasOwnProperty(key)) {
+        const li = document.createElement('li');
+        li.innerText = json[key].email;
+        ulList.appendChild(li);
+      }
+    }
+  });
+
+  //Read for every existing object
+  // DBreflist.on('child_added', snap => {
+  //   //Add Element to List
+  //   const li = document.createElement('li');
+  //   li.innerText = snap.val();
+  //   ulList.appendChild(li);
+  // });
 
   //Sync real time changes; turn on database references
-  DBrefobject.on('value', snap => {
-    //change the inner text of the preObject to the retrieved JSON
-    preObject.innerText = JSON.stringify(snap.val(), null, 3);
-  });
+  // DBrefobject.on('value', snap => {
+  //   //change the inner text of the preObject to the retrieved JSON
+  //   preObject.innerText = JSON.stringify(snap.val(), null, 3);
+
+  // });
 
   //Firebase Login
     btnLogin.addEventListener('click', e => {
@@ -90,8 +122,9 @@ $(function() {
 
 
   
-  //LogOut
-  //Switch to index.html when clicked
+  // LogOut
+  // Switch to index.html when clicked
+  // works
   btnLogout.addEventListener('click', e =>{
     //Sign out the currently logged in User
     firebase.auth().signOut();
@@ -117,24 +150,27 @@ $(function() {
             name = user.displayName;
             email = user.email;
 
-            // Retrieve Admin Emails
-            const leadsRef = firebase.database().ref().child('admins');
-            const emailRef = leadsRef.child('email');
+            // retrieve emails of all admins
+            DBrefobject.on('value', snap => {
+              var jsonPre = JSON.stringify(snap.val(), null, 3);
+              var json = JSON.parse(jsonPre);
 
-            // Check if Admin
-            emailRef.on('value', snap => {
-              const admin = JSON.stringify(snap.val(), null, 3);
-              const stringEmail = JSON.parse(admin)
-
-              if (email == stringEmail) {
-                  console.log("Logged into Admin Console")
-                  adminPanel.classList.remove('hidden')
+              console.log(json);
+              for (var key in json) {
+                if (json.hasOwnProperty(key)) {
+                  console.log(json[key].email);
+                  if (email == json[key].email) {
+                      console.log("Logged into Admin Console")
+                      adminPanel.classList.remove('hidden')
+                      break;
+                  }
+                  else {
+                    console.log("Not an Admin.")
+                    adminPanel.classList.add('hidden')
+                  }
+                }
               }
-              else {
-                console.log("Not an Admin.")
-                adminPanel.classList.add('hidden')
-            }
-          })
+          });
         }
     }
     else {
@@ -161,5 +197,5 @@ Add editing capabilities for names and descriptions for Board
 Add editing capabilities for logo and team name
 Add youtube imbedding from admin panel
 Posting System
-ADJUST AUTHENTICATION - ADMIN STRUCTURE CHANGED 
+login isn't working from the home page - change app.js to admin.js and create a index.js?
 */
