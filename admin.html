@@ -124,6 +124,7 @@
         <div class = "container">
         <div class="row">
                 <h2>Manage Admin Info</h2>
+                <p>NOTE: At the moment, only function working in this section is add admin button.</p>
                 <div style = "margin-bottom:10px">
                         <button id = "adminInit" class = "btn btn-primary" data-popup-open="popup-2" href="#">Add Admin</button>
                         <!--PopUp-->
@@ -133,8 +134,8 @@
                                 <p>To create a new admin account, create a new account with the desired account details. Then, add the username (email) and name of the desired admin account to the field below.</p>
 
                                 <!--Admin Text-->
-                                <div  style = "padding-bottom:20px"><input id = "adminName" type = "text" placeholder="Name"></div>
-                                <div  style = "padding-bottom:20px"><input id = "adminEmail" type = "text" placeholder="Email"></div>
+                                <div><input id = "adminName" type = "text" placeholder="Name"></div>
+                                <div style = "padding-bottom:20px"><input id = "adminEmail" type = "text" placeholder="Email"></div>
 
 
                                 <p>
@@ -147,16 +148,10 @@
                         <!--End Pop Up-->
 <!--FINISHED UP TO HERE-->
                     <button id = "mngProfile" class = "btn btn-primary">Manage Profile</button>
+                    <button id = "testButton" class = "btn btn-primary">JSON test</button>
                 </div>
                 <p style = "color:#000000; margin-bottom:5px">Current Admins: </p>
-                    <ul>
-
-                        <pre id = "object">
-                        </pre>
-
-                        <!--Change to retrieve admin list from Firebase-->
-                        <li>icydragon987@gmail.com - Emily Yu</li>
-                        <li>same</li>
+                    <ul id = "list">
                     </ul>
         </div></div>
     </section>
