@@ -314,6 +314,15 @@ header{
 }
 /* End Login Popup*/
 
+/* Input Box - Admin */
+.form {
+    text-align: left;
+    outline: none;
+    min-width:4px;
+    max-width:90%;
+}
+
+
 
 ::-moz-selection{
 	color:#fff;text-shadow:none;background:#222
