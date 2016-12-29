@@ -17,7 +17,7 @@ $(function() {
     });
 });
 
-
+$('input').css('width',((input.getAttribute('placeholder').length + 1) * 8) + 'px');
 /*
     apiKey: '<your-api-key>',
     authDomain: '<your-auth-domain>',
@@ -36,8 +36,8 @@ $(function() {
   };
   firebase.initializeApp(config);
 
+  // Get Elements
   // Login
-  // Get elements
   const txtemail = document.getElementById('email');
   const txtpassword = document.getElementById('password');
   const btnSignUp = document.getElementById('btnSignUp');
@@ -47,6 +47,7 @@ $(function() {
   const loginButton = document.getElementById('loginButton');
   const adminText = document.getElementById('adminText');
 
+  // Add Admin Constants
   const adminInit = document.getElementById('adminInit');
   const addAdmin = document.getElementById('addAdmin');
   const adminEmail = document.getElementById('adminEmail');
@@ -60,6 +61,73 @@ $(function() {
   const DBreflist = DBrefobject.child('email');
   const ulList = document.getElementById('list');
 
+  // Post Text
+  const postButton = document.getElementById('postUpdate');
+  const postTitle = document.getElementById('Header');
+  const postText = document.getElementById('Text');
+
+  const FBpostRef = firebase.database().ref().child('numberPosts'); // ref to element number of posts
+
+
+  // Get Date for posting
+  // For todays date;
+  Date.prototype.today = function () { 
+      return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+  }
+
+  // For the time now
+  Date.prototype.timeNow = function () {
+       return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+  }
+
+
+  // Add Post Button
+  postButton.addEventListener('click', e => {
+      // reference to place to create new post
+      var postRef = firebase.database().ref().child("post");
+
+      // retrieve new Date
+      var newDate = new Date();
+      var datetime = newDate.today() + " @ " + newDate.timeNow();
+
+      // Create new post
+      FBpostRef.once('value', snap => {
+        var keyRef = snap.val() + 1; // amount of posts, plus 1
+        console.log(keyRef);
+
+        // update keyvalue
+        var personRef = firebase.database().ref("numberPosts");
+        personRef.once('value', snap => {
+          var jsonPre = JSON.stringify(snap.val(), null, 3);
+          var json = JSON.parse(jsonPre);
+          firebase.database().ref().update({"numberPosts": keyRef});
+        })
+
+        console.log(personRef)
+
+        // values to log lul
+        var loggedTitle = postTitle.value;
+        var loggedText = postText.value;
+        
+        // retrieve admin info
+        var user = firebase.auth().currentUser;
+        if (user != null) {
+            var loggedName = user.displayName;
+        }
+        else {
+          // stuff
+        }
+
+        // set values
+        postRef.child(keyRef).update({
+          date: datetime,
+          title: loggedTitle,
+          text: loggedText,
+          user: loggedName
+        })
+
+      });
+  });
 
   // JSON test button
   testButton.addEventListener('click', e => {
@@ -80,21 +148,6 @@ $(function() {
       }
     }
   });
-
-  //Read for every existing object
-  // DBreflist.on('child_added', snap => {
-  //   //Add Element to List
-  //   const li = document.createElement('li');
-  //   li.innerText = snap.val();
-  //   ulList.appendChild(li);
-  // });
-
-  //Sync real time changes; turn on database references
-  // DBrefobject.on('value', snap => {
-  //   //change the inner text of the preObject to the retrieved JSON
-  //   preObject.innerText = JSON.stringify(snap.val(), null, 3);
-
-  // });
 
   //Firebase Login
     btnLogin.addEventListener('click', e => {
