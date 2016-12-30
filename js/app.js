@@ -1,4 +1,6 @@
-// jQuery PopUp Button
+
+
+// PopUp Button
 $(function() {
     //----- OPEN
     $('[data-popup-open]').on('click', function(e)  {
@@ -12,12 +14,10 @@ $(function() {
     $('[data-popup-close]').on('click', function(e)  {
         var targeted_popup_class = jQuery(this).attr('data-popup-close');
         $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
- 
         e.preventDefault();
     });
 });
 
-$('input').css('width',((input.getAttribute('placeholder').length + 1) * 8) + 'px');
 /*
     apiKey: '<your-api-key>',
     authDomain: '<your-auth-domain>',
@@ -62,11 +62,15 @@ $('input').css('width',((input.getAttribute('placeholder').length + 1) * 8) + 'p
   const ulList = document.getElementById('list');
 
   // Post Text
-  const postButton = document.getElementById('postUpdate');
+  const postButton = document.getElementById('postButton');
   const postTitle = document.getElementById('Header');
   const postText = document.getElementById('Text');
 
   const FBpostRef = firebase.database().ref().child('numberPosts'); // ref to element number of posts
+  
+  const iDiv = document.getElementById('block');
+
+  const welcomeMessage = document.getElementById('welcomeMessage'); // not working
 
 
   // Get Date for posting
@@ -80,7 +84,94 @@ $('input').css('width',((input.getAttribute('placeholder').length + 1) * 8) + 'p
        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
   }
 
+  // load upcoming posts on right page
+  document.addEventListener('DOMContentLoaded', function() {
+    // retrieve info from posts firebase
+      // div for stored posts
+    if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "upcoming.html") { // only runs if on this page
+      var iDiv = document.createElement('div');
+      iDiv.id = 'block';
+      iDiv.className = 'block';
 
+      FBpostRef.on('value', snap =>{
+      var postRef = firebase.database().ref().child("post");
+      for (i = 1; i < (snap.val()+1); i++) {  // goes from 1- (FBpostRef.value - 1) - iterates through all post key
+        const innerRef = postRef.child(i);
+        // super slow feelsbad
+        innerRef.once('value', snap =>{
+          var jsonPre = JSON.stringify(snap.val(), null, 3);
+          var json = JSON.parse(jsonPre);
+
+          // logs value of title elements
+          const titleRef = innerRef.child('title');
+          titleRef.once('value', snap => {
+            var jsonPre2 = JSON.stringify(snap.val(), null, 3);
+            var json2 = JSON.parse(jsonPre2);
+            console.log(json2)
+
+            // Create the inner div (body) before appending to the body
+            var innerDiv = document.createElement('div');
+            innerDiv.innerHTML = json2; //change to retrieved text
+            innerDiv.className = 'block-3';
+            innerDiv.classList.add("post");
+            innerDiv.classList.add("upcomingHeader");
+            iDiv.appendChild(innerDiv); // add it to the div
+
+            // Then append the whole thing onto the body
+            document.getElementsByTagName('body')[0].appendChild(iDiv);
+          })
+
+          // logs value of text elements
+          const textRef = innerRef.child('text');
+          textRef.once('value', snap => {
+            var jsonPre2 = JSON.stringify(snap.val(), null, 3);
+            var json2 = JSON.parse(jsonPre2);
+            console.log(json2)
+
+            // Create the inner div (body) before appending to the body
+            var innerDiv = document.createElement('div');
+            innerDiv.innerHTML = json2; //change to retrieved text
+            innerDiv.className = 'block-2';
+            innerDiv.classList.add("post");
+            iDiv.appendChild(innerDiv); // add it to the div
+
+            // Then append the whole thing onto the body
+            document.getElementsByTagName('body')[0].appendChild(iDiv);
+          })
+
+          // logs value of text elements
+          const dateRef = innerRef.child('date');
+          dateRef.once('value', snap => {
+            var jsonPre2 = JSON.stringify(snap.val(), null, 3);
+            var json2 = JSON.parse(jsonPre2);
+            console.log(json2)
+
+            // Create the inner div (body) before appending to the body
+            var innerDiv = document.createElement('div');
+            innerDiv.innerHTML = json2; //change to retrieved text
+            innerDiv.className = 'block-4';
+            innerDiv.classList.add("post");
+            iDiv.appendChild(innerDiv); // add it to the div
+
+            // post seperator
+            var seperator = document.createElement('hr')
+            seperator.classList.add("primary")
+            iDiv.appendChild(seperator);
+
+            // Then append the whole thing onto the body
+            document.getElementsByTagName('body')[0].appendChild(iDiv);
+          })
+        })
+      }
+    })
+    }
+    else {
+      console.log("rip wrong page")
+    }
+  }, false);
+
+// admin.html specific
+if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "admin.html") { // only runs if on this page
   // Add Post Button
   postButton.addEventListener('click', e => {
       // reference to place to create new post
@@ -128,11 +219,12 @@ $('input').css('width',((input.getAttribute('placeholder').length + 1) * 8) + 'p
 
       });
   });
+}
+else {
+  console.log("kek wrong page")
+}
 
-  // JSON test button
-  testButton.addEventListener('click', e => {
 
-  });
 
 // retrieve emails of all admins
   DBrefobject.on('value', snap => {
@@ -207,8 +299,6 @@ $('input').css('width',((input.getAttribute('placeholder').length + 1) * 8) + 'p
             DBrefobject.on('value', snap => {
               var jsonPre = JSON.stringify(snap.val(), null, 3);
               var json = JSON.parse(jsonPre);
-
-              console.log(json);
               for (var key in json) {
                 if (json.hasOwnProperty(key)) {
                   console.log(json[key].email);
@@ -243,12 +333,3 @@ addAdmin.addEventListener('click', e => {
   });
 });
 
-
-/*
-TODO: 
-Add editing capabilities for names and descriptions for Board
-Add editing capabilities for logo and team name
-Add youtube imbedding from admin panel
-Posting System
-login isn't working from the home page - change app.js to admin.js and create a index.js?
-*/
