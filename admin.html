@@ -67,14 +67,14 @@
                 <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto; margin-bottom:10px;">
                     <font color = "#FFFFFF"><center>Admin Console</center></font>
                     <!--Add Typed.js to this-->
-                    <div style = "font-size:20px"><font color = "#FFFFFF">Welcome, Admin.</font></div>
+                    <div id = "welcomeMessage" style = "font-size:20px"><font color = "#FFFFFF">Welcome, Admin.</font></div>
                 </div>
             </div>
         </div>
     </header>
 
 
-    <!--Navbar-->
+<!--Navbar-->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -87,8 +87,9 @@
                     <li><a href = "index.html">Home</a></li>
                     <li><a href = "upcoming.html">Upcoming Events</a></li>
                     <li><a href = "portfolio.html">Portfolio</a></li>
-                    <li><a id = "adminPanel" class = "hidden" href = "portfolio.html">Admin Console</a></li>
+                    <li><a id = "adminPanel" class = "hidden" href = "admin.html">Admin Console</a></li>
                     <li><a id = "loginButton" data-popup-open="popup-1" href="#">Login</a></li>
+        
  
                     <!--PopUp-->
                     <div class="popup" data-popup="popup-1">
@@ -124,14 +125,13 @@
         <div class = "container">
         <div class="row">
                 <h2>Manage Admin Info</h2>
-                <p>NOTE: At the moment, only function working in this section is add admin button.</p>
+                <p>NOTE: The only fully functional button is the add admin button</p>
                 <div style = "margin-bottom:10px">
                         <button id = "adminInit" class = "btn btn-primary" data-popup-open="popup-2" href="#">Add Admin</button>
                         <!--PopUp-->
                         <div class="popup" data-popup="popup-2">
                             <div class="popup-inner">
                                 <h2>Initialize Admin</h2>
-                                <p>To create a new admin account, create a new account with the desired account details. Then, add the username (email) and name of the desired admin account to the field below.</p>
 
                                 <!--Admin Text-->
                                 <div><input id = "adminName" type = "text" placeholder="Name"></div>
@@ -167,7 +167,6 @@
                 <button id = "editTeamName" class = "btn btn-white">Upload Icon</button>
 
                 <div style = "margin-top:15px">
-                    <p>Current Team Name: PAly Kpop!!</p>
                 </div>
 
             </div>
@@ -181,9 +180,9 @@
                 <h2>Post Updates</h2>
                 <p>The posting button is currently working.</p>
                 <div style = "margin-top:5px"><input id = "Header" type = "text" placeholder="Header"></div>
-                <div><input id="Text" placeholder="name" class="form" type="text" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" style = "margin-bottom:20px"></span>
-                </style></div>
-                <button id = "postUpdate" class = "btn btn-primary">Post Update</button>
+                <div><input id="Text" placeholder="Text" class="form" type="text" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" style = "margin-bottom:20px"></span>
+                </div>
+                <button id = "postButton" class = "btn btn-primary">Post Update</button>
             </div>
         </div>
     </section>
@@ -204,18 +203,15 @@
         <div class = "container">
             <div class = "row">
                 <h2>Add Photo</h2>
-                <!--Figure out some way to uplaod photos!!!, maybe use gdrive???-->
                 <button id = "editTeamName" class = "btn btn-primary">Post Photo</button>
             </div>
         </div>
     </section>
 
-
-    <footer class="bg-dark">
+    <section class="bg-dark">
         <div class="container">
-            <div>
-                <!--Change Text color to a Faint Grey-->
-                <p style = "margin-left:10%; margin-right:10%"><center>Made by <a href = "https://github.com/ey1031" style = "color:#d4d4d4">Emily Yu</a></center></p>
+            <div class = "row">
+            hah
             </div>
         </div>
     </footer>

@@ -14,7 +14,6 @@
 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Titillium+Web">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=David+Libre">
@@ -65,7 +64,6 @@
             <div class="header-content-inner">
                 <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto; margin-bottom:10px;">
                     <font color = "#FFFFFF"><center>PALY KPOP DANCE CLUB</center></font>
-                    <!-- <a href="https://palyhacks.typeform.com/to/pa790f" class="btn btn-primary btn-xl page-scroll" style = "border-radius:0%; margin-top:20px">Apply</a> -->
                 </div>
             </div>
         </div>
@@ -84,16 +82,48 @@
                     <li><a href = "index.html">Home</a></li>
                     <li><a href = "upcoming.html">Upcoming Events</a></li>
                     <li><a href = "portfolio.html">Portfolio</a></li>
+                    <li><a id = "adminPanel" class = "hidden" href = "admin.html">Admin Console</a></li>
+                    <li><a id = "loginButton" data-popup-open="popup-1" href="#">Login</a></li>
+        
+ 
+                    <!--PopUp-->
+                    <div class="popup" data-popup="popup-1">
+                        <div class="popup-inner">
+                            <h2>Admin Login</h2>
+                            <p id = "adminText">For access to the Admin Console, please input your login information below.</p>
+
+                            <!--Email Text field-->
+                            <div><input id = "email" type = "text" placeholder="Email"></div>
+                            <!--Password Input Field-->
+                            <div style = "padding-bottom:20px" class = "password"><input id = "password" type = "text" placeholder="Password"></div>
+
+                            <p>
+                                <button class = "btn btn-primary btn-xl" id = "btnLogin">Login</button>
+                                <!--Sign Up Button-->
+                                <button id = "btnSignUp" class="btn btn-primary btn-xl">Sign Up</button>
+                                <!--Logout Button-->
+                                <button id = "btnLogout" class="btn btn-primary btn-xl hidden">Log Out</button>
+                                <button class = "btn btn-primary btn-xl" data-popup-close="popup-1" href="#">Close</button>
+                            </p>
+                            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                        </div>
+                    </div>
+                    <!--End Pop Up-->
+
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Add posts here for now -->
     <section class = "bg-same">
         <div class = "container-fluid">  
             <h2><center>Upcoming Events</center></h2>
             <hr class = "primary">
+            <div id="block" class="block" style = "background-color:#FF23FF">
+            </div>
     </section>
+
 
 </body>
 
@@ -107,13 +137,6 @@
 
 <!-- Leave out Storage -->
 <!-- <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-storage.js"></script> -->
-
-<script>
-  var config = {
-    // ...
-  };
-  firebase.initializeApp(config);
-</script>
 
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
