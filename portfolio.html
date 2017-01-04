@@ -12,6 +12,8 @@
 
     <title>Paly Kpop Dance</title>
 
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -65,114 +67,22 @@
         <div class="header-content">
             <div class="header-content-inner">
                 <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto; margin-bottom:10px;">
-                    <font color = "#FFFFFF"><center>PALY KPOP DANCE CLUB</center></font>
-                    <!-- <a href="https://palyhacks.typeform.com/to/pa790f" class="btn btn-primary btn-xl page-scroll" style = "border-radius:0%; margin-top:20px">Apply</a> -->
+                    <font color = "#FFFFFF"><center>Portfolio</center></font>
                 </div>
+
+                <!-- Icons -->
+                <ul class="list-inline list-social">
+                    <li class="social-facebook">
+                        <a href="https://www.facebook.com/palykpop/?fref=ts"><img src = "img/facebookLogo.png" style = "width:20px; height:20px"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li class="social-orange">
+                        <a href="mailto:palykpop@gmail.com"><img src = "img/mailtoicon.png" style = "width:20px; height:20px"><i class="fa fa-google-plus"></i></a>
+                    </li>
+                </ul>
+
             </div>
         </div>
     </header>
-
-    <nav class="social">
-          <ul>
-              <li><a href="http://twitter.com/gian_michelle">Twitter <i class="fa fa-twitter"></i></a></li>
-              <li><a href="http://facebook.com/gian.michelle">Facebook <i class="fa fa-facebook"></i></a></li>
-              <li><a href="http://dribbble.com/gian_michelle">Dribbble <i class="fa fa-dribbble"></i></a></li>
-              <li><a href="http://behance.net">Behance <i class="fa fa-behance"></i></a></li>
-              <style>
-              a {
-  color: #fff;
-  text-decoration: none;
-}
-.me {
-  width: 400px;
-  margin: 90px auto;
-}
-.me p,
-.me h1 {
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  text-align: center;
-}
-.me p {
-  font-weight: 200;
-}
-.me span {
-  font-weight: bold;
-}
-.social {
-  position: fixed;
-  top: 20px;
-}
-.social ul {
-  padding: 0px;
-  -webkit-transform: translate(-270px, 0);
-  -moz-transform: translate(-270px, 0);
-  -ms-transform: translate(-270px, 0);
-  -o-transform: translate(-270px, 0);
-  transform: translate(-270px, 0);
-}
-.social ul li {
-  display: block;
-  margin: 5px;
-  background: rgba(0, 0, 0, 0.36);
-  width: 300px;
-  text-align: right;
-  padding: 10px;
-  -webkit-border-radius: 0 30px 30px 0;
-  -moz-border-radius: 0 30px 30px 0;
-  border-radius: 0 30px 30px 0;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -ms-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
-}
-.social ul li:hover {
-  -webkit-transform: translate(110px, 0);
-  -moz-transform: translate(110px, 0);
-  -ms-transform: translate(110px, 0);
-  -o-transform: translate(110px, 0);
-  transform: translate(110px, 0);
-  background: rgba(255, 255, 255, 0.4);
-}
-.social ul li:hover a {
-  color: #000;
-}
-.social ul li:hover i {
-  color: #fff;
-  background: rgba(0, 0, 0, 0.36);
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  transform: rotate(360deg);
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -ms-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
-}
-.social ul li i {
-  margin-left: 10px;
-  color: #000;
-  background: #fff;
-  padding: 10px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
-  background: #ffffff;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-              </style>
-          </ul>
-    </nav>
 
     <!--Navbar-->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -187,69 +97,122 @@
                     <li><a href = "index.html">Home</a></li>
                     <li><a href = "upcoming.html">Upcoming Events</a></li>
                     <li><a href = "portfolio.html">Portfolio</a></li>
+                    <li><a id = "adminPanel" class = "hidden" href = "admin.html">Admin Console</a></li>
+                    <li><a id = "loginButton" data-popup-open="popup-1" href="#">Login</a></li>
+        
+ 
+                    <!--PopUp-->
+                    <div class="popup" data-popup="popup-1">
+                        <div class="popup-inner">
+                            <h2>Admin Login</h2>
+                            <p id = "adminText">For access to the Admin Console, please input your login information below.</p>
+
+                            <!--Email Text field-->
+                            <div><input id = "email" type = "text" placeholder="Email"></div>
+                            <!--Password Input Field-->
+                            <div style = "padding-bottom:20px" class = "password"><input id = "password" type = "text" placeholder="Password"></div>
+
+                            <p>
+                                <button class = "btn btn-primary btn-xl" id = "btnLogin">Login</button>
+                                <!--Sign Up Button-->
+                                <button id = "btnSignUp" class="btn btn-primary btn-xl">Sign Up</button>
+                                <!--Logout Button-->
+                                <button id = "btnLogout" class="btn btn-primary btn-xl hidden">Log Out</button>
+                                <button class = "btn btn-primary btn-xl" data-popup-close="popup-1" href="#">Close</button>
+                            </p>
+                            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+                        </div>
+                    </div>
+                    <!--End Pop Up-->
+
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Youtube Videos -->
     <section class = "bg-same">
         <div class = "container">
         <div class="row">
-            <div class="col-sm-8">
-                <h2>Youtube</h2>
-                <p style = "color:#000000">Paly KPOP teaches choreographies and creates dance covers of various K-pop and English hip hop songs, as well as occasional photoshoots and vocal covers. Dancers, singers, photographers, video/film editors, and music fans are all welcome.</p>
+            <div class="col-sm-4">
+                <h2>Youtube Channel</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nibh felis, porta at lobortis at, tristique quis augue. Vivamus laoreet quam vel lacus vulputate, a accumsan mi blandit. Integer efficitur aliquam egestas. Morbi ultricies, purus a pharetra dignissim, augue leo eleifend lacus, quis porta eros dui sed dolor. Cras vitae laoreet lorem. Curabitur volutpat, felis quis consectetur ultrices, orci risus vestibulum libero, eget cursus turpis urna sed nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis varius ligula id purus sollicitudin, nec efficitur libero semper.</p>
+                <button class = "btn btn-primary btn-xl"><a style = "text-decoration:none; color:white" href = "https://www.youtube.com/channel/UCLX6ibTiNZ1ydjhUWpL0MxA">Visit Channel</a></button>
             </div>
-            <div class = "col-sm-4">
-                <p style = "color:#000000; margin-top:65px;">Club Meetings: 1135AM at Dance Studio!</p>
+            <div class = "col-sm-8" style = "margin-top:20px">
+              <iframe width="560" height="315" style = "margin-bottom:20px" src="https://www.youtube.com/embed/dvDwEAOpQQo" frameborder="0" allowfullscreen></iframe>
+              <p>Songs: EXO - Call Me Baby, Twice - Like OOH AAH</br>Dancers: Vivi Nguyen, Amelia Straight, Chloe Hong, Kyle Powell, Aishah Maas, Isabella Phung, Teresa Huang</p>
+              <iframe width="560" height="315" style = "margin-bottom:20px" src="https://www.youtube.com/embed/PSp_v8EwUFE" frameborder="0" allowfullscreen></iframe>
+              <p>Dancers: Chloe Hong, Vivi Nguyen, Alex Tarng, James Ngo, Ben McAuliffe</p>
             </div>
         </div></div>
     </section>
 
-    <section class="bg-dark" id="board">
+    <!-- Insert Photo Album Here -->
+    <section class = "bg-dark">
         <div class = "container">
-	        <div class = "row">
-                <h2 style = "font-size:30px; margin-bottom:10px; margin-left:2%; margin-right:2%">Club Officers</h2>
-                <div class = "col-lg-2">
-                    <img src = "person1.jpg" height="135px" width="135px" style="border-radius: 50%">
-                    <h2 style = "font-size:22px">Vivian Wu</h2>
-                    <p>Vice President</p>
-                </div>
-                <div class = "col-lg-2">
-		            <img src = "person1.jpg" height="135px" width="135px" style="border-radius: 50%">
-                    <h2 style = "font-size:22px">Flora Yu</h2>
-                    <p>President</p>
-                </div>
-                <div class = "col-lg-2">
-		            <img src = "person1.jpg" height="135px" width="135px" style="border-radius: 50%">
-		            <h2 style = "font-size:22px">Vivian Nguyen</h2>
-		            <p>Vice President</p>
-                </div>
-                <div class = "col-lg-2">
-                    <img src = "person1.jpg" height="135px" width="135px" style="border-radius: 50%">
-                    <h2 style = "font-size:22px">Chloe Hong</h2>
-                    <p>Public Relations</p>
-                </div>
-                <div class = "col-lg-2">
-                    <img src = "person1.jpg" height="135px" width="135px" style="border-radius: 50%">
-                    <h2 style = "font-size:22px">Emily Yu</h2>
-                    <p>Web</p>
-                </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <h2>Photo Gallery</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nibh felis, porta at lobortis at, tristique quis augue. Vivamus laoreet quam vel lacus vulputate, a accumsan mi blandit. Integer efficitur aliquam egestas. Morbi ultricies, purus a pharetra dignissim, augue leo eleifend lacus, quis porta eros dui sed dolor. Cras vitae laoreet lorem. Curabitur volutpat, felis quis consectetur ultrices, orci risus vestibulum libero, eget cursus turpis urna sed nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis varius ligula id purus sollicitudin, nec efficitur libero semper.</p>
             </div>
-        </div>
-
-        <div class = "container">
-            <div class = "row">
+            <div class = "col-sm-8" style = "margin-top:20px">
+               <div class="gallery cf">
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div> 
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>  
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>  
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>  
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>  
+                <div>
+                  <img src="img/person1.jpg"/>
+                </div>                                 
+              </div>
             </div>
-        </div>
+        </div></div>
     </section>
 
-    <section class="bg-dark">
+    <footer class="bg-dark">
         <div class="container">
-            <div>
-                <p style = "margin-left:10%; margin-right:10%">Made by Kpop Dance Club.</p>
-                <i id="mail" class="icon-envelope"></i> 
-            </div>
+          <p><center>Made by <a style = "color:white" href = "https://github.com/ey1031">Emily Yu</a></center></p>
         </div>
-    </section>
+    </footer>
 
 </body>
 
