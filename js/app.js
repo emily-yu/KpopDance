@@ -151,12 +151,9 @@ $(function() {
             innerDiv.innerHTML = json2; //change to retrieved text
             innerDiv.className = 'block-4';
             innerDiv.classList.add("post");
+            innerDiv.classList.add("blogSpacing");
             iDiv.appendChild(innerDiv); // add it to the div
 
-            // post seperator
-            var seperator = document.createElement('hr')
-            seperator.classList.add("primary")
-            iDiv.appendChild(seperator);
 
             // Then append the whole thing onto the body
             document.getElementsByTagName('body')[0].appendChild(iDiv);
