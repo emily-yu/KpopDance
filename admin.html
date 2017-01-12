@@ -12,7 +12,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
 
-    <title>Paly Kpop Dance</title>
+    <title>Paly Kpop Dance - Admin Console</title>
 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
@@ -61,16 +61,12 @@
     <div class="se-pre-con"></div>
 
     <!--Home-->
-    <header style = "height:50%">
+    <header style = "height:40%">
         <div class="header-content">
             <div class="header-content-inner">
-                <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto;">
+                <div class = "titlepadding" style="font-family: 'Roboto', serif; font-size: 40px; margin-top:auto; margin-bottom:10px;">
                     <font color = "#FFFFFF"><center>Admin Console</center></font>
-                </div>
-
-
-                <!-- Icons -->
-                <ul class="list-inline list-social">
+                    <ul class="list-inline list-social">
                     <li class="social-facebook">
                         <a href="https://www.facebook.com/palykpop/?fref=ts"><img src = "img/facebookLogo.png" style = "width:20px; height:20px"><i class="fa fa-facebook"></i></a>
                     </li>
@@ -78,6 +74,7 @@
                         <a href="mailto:palykpop@gmail.com"><img src = "img/mailtoicon.png" style = "width:20px; height:20px"><i class="fa fa-google-plus"></i></a>
                     </li>
                 </ul>
+                </div>
 
             </div>
         </div>
@@ -135,7 +132,6 @@
         <div class = "container">
         <div class="row">
                 <h2>Manage Admin Info</h2>
-                <p>NOTE: The only fully functional button is the add admin button</p>
                 <div style = "margin-bottom:10px">
                         <button id = "adminInit" class = "btn btn-primary" data-popup-open="popup-2" href="#">Add Admin</button>
                         <!--PopUp-->
@@ -157,9 +153,7 @@
                             </div>
                         </div>
                         <!--End Pop Up-->
-<!--FINISHED UP TO HERE-->
-                    <button id = "mngProfile" class = "btn btn-primary">Manage Profile</button>
-                    <button id = "testButton" class = "btn btn-primary">JSON test</button>
+<!--                     <button id = "mngProfile" class = "btn btn-primary">Manage Profile</button> -->
                 </div>
                 <p style = "color:#000000; margin-bottom:5px">Current Admins: </p>
                     <ul id = "list">
@@ -172,7 +166,7 @@
         <div class = "container">
 	        <div class = "row">
                 <h2>Edit Team Information</h2>
-                <!--SWAP COLORS FOR AESTHETIC-->
+                <p>not working atm</p>
                 <button id = "editTeamName" class = "btn btn-white">Edit Team Name</button>
                 <button id = "editTeamName" class = "btn btn-white">Upload Logo</button>
                 <button id = "editTeamName" class = "btn btn-white">Upload Icon</button>
@@ -189,7 +183,6 @@
         <div class = "container">
             <div class = "row">
                 <h2>Post Updates</h2>
-                <p>The posting button is currently working.</p>
                 <div style = "margin-top:5px"><input id = "Header" type = "text" placeholder="Header"></div>
                 <div><input id="Text" placeholder="Text" class="form" type="text" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" style = "margin-bottom:20px"></span>
                 </div>
@@ -203,8 +196,13 @@
         <div class = "container">
             <div class = "row">
                 <h2>Add Youtube Video</h2>
-                <input id = "Header" type = "text" placeholder="URL" style = "color: black;">
-                <div style="padding-top:10px"><button id = "editTeamName" class = "btn btn-white">Post Video</button></div>
+<!--                 <input id = "Header" type = "text" placeholder="URL" style = "color: black;">
+                <div style="padding-top:10px"><button id = "editTeamName" class = "btn btn-white">Post Video</button></div> -->
+
+                <input id = "testInput" placeholder="Embed URL" style = "color: black;">
+                <div><input id = "iframeCaption" placeholder = "Songs"></div>
+                <div><input id = "dancer" placeholder = "Dancers"></div>
+                <div style="padding-top:10px"><button id = "addVideo" class = "btn btn-white">Post Video</button></div>
             </div>
         </div>
     </section>
@@ -214,6 +212,7 @@
         <div class = "container">
             <div class = "row">
                 <h2>Add Photo</h2>
+                <p>not working atm</p>
                 <button id = "editTeamName" class = "btn btn-primary">Post Photo</button>
             </div>
         </div>
