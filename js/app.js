@@ -53,8 +53,6 @@ $(function() {
   const adminEmail = document.getElementById('adminEmail');
   const adminName = document.getElementById('adminName');
 
-  const testButton = document.getElementById('testButton');
-
   // PreObject
   const preObject = document.getElementById('object');
   const DBrefobject = firebase.database().ref().child('admins'); // Create a reference to Firebase Database under element admins
@@ -72,6 +70,12 @@ $(function() {
 
   const welcomeMessage = document.getElementById('welcomeMessage'); // not working
 
+  const testInput = document.getElementById('testInput');
+  const iframeCaption = document.getElementById('iframeCaption');
+
+  const addVideo = document.getElementById('addVideo');
+  const videoRef = firebase.database().ref().child('numberVideos'); // ref to element number of posts
+  const dancer = document.getElementById('dancer');
 
   // Get Date for posting
   // For todays date;
@@ -87,6 +91,74 @@ $(function() {
   // load upcoming posts on right page
   document.addEventListener('DOMContentLoaded', function() {
     // retrieve info from posts firebase
+
+    // portfolio.html specific
+    if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "portfolio.html") { // only runs if on this page
+        var newDiv = document.getElementById('testArea');
+
+        videoRef.on('value', snap =>{
+        var postRef = firebase.database().ref().child("videos");
+        for (i = 1; i < (snap.val()+1); i++) {  // goes from 1- (FBpostRef.value - 1) - iterates through all post key
+          const innerRef = postRef.child(i);
+          // super slow feelsbad
+          innerRef.once('value', snap =>{
+            var jsonPre = JSON.stringify(snap.val(), null, 3);
+            var json = JSON.parse(jsonPre);
+
+            // logs value of link
+            const titleRef = innerRef.child('link');
+            titleRef.once('value', snap => {
+              var jsonPre2 = JSON.stringify(snap.val(), null, 3);
+              var json2 = JSON.parse(jsonPre2);
+              console.log(json2)
+
+              // create the video
+              var iFrame = document.createElement('iframe');
+              iFrame.src = json2;
+              newDiv.appendChild(iFrame);
+            })
+
+            // logs value of dancers
+            const subcaptionRef = innerRef.child('dancer');
+            subcaptionRef.once('value', snap => {
+              var jsonPre2 = JSON.stringify(snap.val(), null, 3);
+              var json2 = JSON.parse(jsonPre2);
+              console.log(json2)
+
+              // Create the inner div (body) before appending to the body
+              var subcaption = document.createElement('div');
+              subcaption.innerHTML = json2; //change to retrieved text
+              newDiv.appendChild(subcaption); // add it to the div
+
+            })
+
+            // logs value of caption
+            const captionRef = innerRef.child('caption');
+            captionRef.once('value', snap => {
+              var jsonPre2 = JSON.stringify(snap.val(), null, 3);
+              var json2 = JSON.parse(jsonPre2);
+              console.log(json2)
+
+              // Create the inner div (body) before appending to the body
+              var caption = document.createElement('div');
+              caption.innerHTML = json2; //change to retrieved text
+              caption.classList.add("blogSpacing")
+              newDiv.appendChild(caption); // add it to the div
+
+            })
+
+            // Then append the whole thing onto the body
+            document.getElementsByTagName('')[0].appendChild(newDiv);
+          })
+        }
+      })
+    }
+    else {
+      console.log("rip wrong page")
+    }
+
+
+
       // div for stored posts
     if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "upcoming.html") { // only runs if on this page
       var iDiv = document.createElement('div');
@@ -322,6 +394,36 @@ else {
     //End Login
 });
 
+// add video - add to database button
+addVideo.addEventListener('click', e => {
+
+      // reference to place to create new video
+      var vidRef = firebase.database().ref().child("videos");
+
+      // Create new video
+      videoRef.once('value', snap => {
+
+        // update number of videos
+        var keyRef = snap.val() + 1; // amount of video, plus 1
+        console.log("Created a new post with value: " + keyRef);
+        var personRef = firebase.database().ref("numberVideos");
+        personRef.once('value', snap => {
+          var jsonPre = JSON.stringify(snap.val(), null, 3);
+          var json = JSON.parse(jsonPre);
+          firebase.database().ref().update({"numberVideos": keyRef});
+        })
+
+        // set values of video
+        vidRef.child(keyRef).update({
+          link: testInput.value,
+          caption: iframeCaption.value,
+          dancer: dancer.value
+        })
+      })
+})
+
+
+
 // Add Admin Button
 addAdmin.addEventListener('click', e => {
   var booksRef = firebase.database().ref().child("admins");
@@ -329,4 +431,7 @@ addAdmin.addEventListener('click', e => {
       email: adminEmail.value
   });
 });
+
+
+
 
