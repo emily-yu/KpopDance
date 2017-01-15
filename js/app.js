@@ -27,7 +27,6 @@ $(function() {
   firebase.initializeApp(config);
 
   // Get Elements
-  // Login
   const txtemail = document.getElementById('email');
   const txtpassword = document.getElementById('password');
   const btnSignUp = document.getElementById('btnSignUp');
@@ -68,7 +67,6 @@ $(function() {
   const dancer = document.getElementById('dancer');
 
   // Get Date for posting
-  // For todays date;
   Date.prototype.today = function () { 
       return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
   }
@@ -78,11 +76,48 @@ $(function() {
        return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
   }
 
-  // load upcoming posts on right page
-  document.addEventListener('DOMContentLoaded', function() {
-    // retrieve info from posts firebase
+  // method for loading elements and stuff
+  function retrieveData(childName, innerRef, newDiv, caseKey, dataType) {
+  	const reference = innerRef.child(childName)
+  	reference.once('value', snap => {
+  		var jsonPre2 = JSON.stringify(snap.val(), null, 3);
+        var json2 = JSON.parse(jsonPre2);
+		var subcaption = document.createElement(dataType);
+		subcaption.innerHTML = json2;
 
-    // portfolio.html specific
+		// add css
+		switch(caseKey){
+			case 0:  //songs spacing
+				subcaption.classList.add("blogSpacing")
+				break;
+			case 2: //iframe loading - profile page
+              	subcaption.src = json2;
+              	break;
+	        case 3: // upcoming posts formatting
+	            subcaption.classList.add("post");
+	           	if (childName == "title") { // add upcomingHdeder
+	           		subcaption.classList.add("upcomingHeader");
+	            }
+	            else if (childName == "date") { // add blogspacing
+	            	subcaption.classList.add("blogSpacing");
+	            }
+				else { //text
+					console.log("You're not special.")
+				}
+	            break;
+			default: //nothing here bb
+				console.log("nothing here bb");
+				break;
+		}
+        newDiv.appendChild(subcaption); // add everything to the div
+
+  	})
+  }
+
+  // load when a page is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+
+    // portfolio.html specific element loading
     if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "portfolio.html") { // only runs if on this page
         var newDiv = document.getElementById('testArea');
 
@@ -90,54 +125,16 @@ $(function() {
         var postRef = firebase.database().ref().child("videos");
         for (i = 1; i < (snap.val()+1); i++) {  // goes from 1- (FBpostRef.value - 1) - iterates through all post key
           const innerRef = postRef.child(i);
-          // super slow feelsbad
           innerRef.once('value', snap =>{
             var jsonPre = JSON.stringify(snap.val(), null, 3);
             var json = JSON.parse(jsonPre);
 
-            // logs value of link
-            const titleRef = innerRef.child('link');
-            titleRef.once('value', snap => {
-              var jsonPre2 = JSON.stringify(snap.val(), null, 3);
-              var json2 = JSON.parse(jsonPre2);
-              console.log(json2)
+            // load video data (captions, iframe)
+            retrieveData('link', innerRef, newDiv, 2, 'iframe');
+            retrieveData('dancer', innerRef, newDiv, 0, 'div');
+            retrieveData('caption', innerRef, newDiv, 0, 'div');
 
-              // create the video
-              var iFrame = document.createElement('iframe');
-              iFrame.src = json2;
-              newDiv.appendChild(iFrame);
-            })
-
-            // logs value of dancers
-            const subcaptionRef = innerRef.child('dancer');
-            subcaptionRef.once('value', snap => {
-              var jsonPre2 = JSON.stringify(snap.val(), null, 3);
-              var json2 = JSON.parse(jsonPre2);
-              console.log(json2)
-
-              // Create the inner div (body) before appending to the body
-              var subcaption = document.createElement('div');
-              subcaption.innerHTML = json2; //change to retrieved text
-              newDiv.appendChild(subcaption); // add it to the div
-
-            })
-
-            // logs value of caption
-            const captionRef = innerRef.child('caption');
-            captionRef.once('value', snap => {
-              var jsonPre2 = JSON.stringify(snap.val(), null, 3);
-              var json2 = JSON.parse(jsonPre2);
-              console.log(json2)
-
-              // Create the inner div (body) before appending to the body
-              var caption = document.createElement('div');
-              caption.innerHTML = json2; //change to retrieved text
-              caption.classList.add("blogSpacing")
-              newDiv.appendChild(caption); // add it to the div
-
-            })
-
-            // Then append the whole thing onto the body
+            // append all new elements to the div
             document.getElementsByTagName('')[0].appendChild(newDiv);
           })
         }
@@ -147,9 +144,8 @@ $(function() {
     }
 
 
-
-      // div for stored posts
-    if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "upcoming.html") { // only runs if on this page
+    // upcoming posts loading
+    if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "upcoming.html") {
       var iDiv = document.createElement('div');
       iDiv.id = 'block';
       iDiv.className = 'block';
@@ -163,62 +159,12 @@ $(function() {
           var jsonPre = JSON.stringify(snap.val(), null, 3);
           var json = JSON.parse(jsonPre);
 
-          // logs value of title elements
-          const titleRef = innerRef.child('title');
-          titleRef.once('value', snap => {
-            var jsonPre2 = JSON.stringify(snap.val(), null, 3);
-            var json2 = JSON.parse(jsonPre2);
-            console.log(json2)
+          // retrieve and display the title, text, and date on posts
+          retrieveData('title', innerRef, iDiv, 3, 'div')
+          retrieveData('text', innerRef, iDiv, 3, 'div')
+          retrieveData('date', innerRef, iDiv, 3, 'div')
 
-            // Create the inner div (body) before appending to the body
-            var innerDiv = document.createElement('div');
-            innerDiv.innerHTML = json2; //change to retrieved text
-            innerDiv.className = 'block-3';
-            innerDiv.classList.add("post");
-            innerDiv.classList.add("upcomingHeader");
-            iDiv.appendChild(innerDiv); // add it to the div
-
-            // Then append the whole thing onto the body
-            document.getElementsByTagName('body')[0].appendChild(iDiv);
-          })
-
-          // logs value of text elements
-          const textRef = innerRef.child('text');
-          textRef.once('value', snap => {
-            var jsonPre2 = JSON.stringify(snap.val(), null, 3);
-            var json2 = JSON.parse(jsonPre2);
-            console.log(json2)
-
-            // Create the inner div (body) before appending to the body
-            var innerDiv = document.createElement('div');
-            innerDiv.innerHTML = json2; //change to retrieved text
-            innerDiv.className = 'block-2';
-            innerDiv.classList.add("post");
-            iDiv.appendChild(innerDiv); // add it to the div
-
-            // Then append the whole thing onto the body
-            document.getElementsByTagName('body')[0].appendChild(iDiv);
-          })
-
-          // logs value of text elements
-          const dateRef = innerRef.child('date');
-          dateRef.once('value', snap => {
-            var jsonPre2 = JSON.stringify(snap.val(), null, 3);
-            var json2 = JSON.parse(jsonPre2);
-            console.log(json2)
-
-            // Create the inner div (body) before appending to the body
-            var innerDiv = document.createElement('div');
-            innerDiv.innerHTML = json2; //change to retrieved text
-            innerDiv.className = 'block-4';
-            innerDiv.classList.add("post");
-            innerDiv.classList.add("blogSpacing");
-            iDiv.appendChild(innerDiv); // add it to the div
-
-
-            // Then append the whole thing onto the body
-            document.getElementsByTagName('body')[0].appendChild(iDiv);
-          })
+         document.getElementsByTagName('body')[0].appendChild(iDiv);
         })
       }
     })
@@ -242,7 +188,6 @@ if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "ad
       // Create new post
       FBpostRef.once('value', snap => {
         var keyRef = snap.val() + 1; // amount of posts, plus 1
-        console.log(keyRef);
 
         // update keyvalue
         var personRef = firebase.database().ref("numberPosts");
@@ -251,8 +196,6 @@ if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "ad
           var json = JSON.parse(jsonPre);
           firebase.database().ref().update({"numberPosts": keyRef});
         })
-
-        console.log(personRef)
 
         // values to log lul
         var loggedTitle = postTitle.value;
@@ -264,7 +207,6 @@ if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "ad
             var loggedName = user.displayName;
         }
         else {
-          // stuff
         }
 
         // set values
@@ -282,14 +224,11 @@ else {
   console.log("wrong page")
 }
 
-
-
 // retrieve emails of all admins
   DBrefobject.on('value', snap => {
     var jsonPre = JSON.stringify(snap.val(), null, 3);
     var json = JSON.parse(jsonPre);
 
-    console.log(json);
     for (var key in json) {
       if (json.hasOwnProperty(key)) {
         const li = document.createElement('li');
@@ -326,11 +265,9 @@ else {
 
   
   // LogOut
-  // Switch to index.html when clicked
-  // works
   btnLogout.addEventListener('click', e =>{
-    //Sign out the currently logged in User
     firebase.auth().signOut();
+    window.location.href = "index.html";
   });
 
   //realtime listener
@@ -359,7 +296,6 @@ else {
               var json = JSON.parse(jsonPre);
               for (var key in json) {
                 if (json.hasOwnProperty(key)) {
-                  console.log(json[key].email);
                   if (email == json[key].email) {
                       console.log("Logged into Admin Console")
                       adminPanel.classList.remove('hidden')
@@ -374,9 +310,9 @@ else {
           });
         }
     }
+    // happens if not logged in
     else {
       console.log("Logged Out.")
-
       //Makes the button invisible
       btnLogout.classList.add('hidden');
     }
@@ -411,8 +347,6 @@ addVideo.addEventListener('click', e => {
       })
 })
 
-
-
 // Add Admin Button
 addAdmin.addEventListener('click', e => {
   var booksRef = firebase.database().ref().child("admins");
@@ -420,7 +354,3 @@ addAdmin.addEventListener('click', e => {
       email: adminEmail.value
   });
 });
-
-
-
-
