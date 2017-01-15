@@ -1,5 +1,3 @@
-
-
 // PopUp Button
 $(function() {
     //----- OPEN
@@ -17,14 +15,6 @@ $(function() {
         e.preventDefault();
     });
 });
-
-/*
-    apiKey: '<your-api-key>',
-    authDomain: '<your-auth-domain>',
-    databaseURL: '<your-database-url>',
-    storageBucket: '<your-storage-bucket>'
-    messengingSenderId: '<your-messenging-sender-id'
-*/
 
   //Init Firebase
   var config = {
@@ -154,7 +144,6 @@ $(function() {
       })
     }
     else {
-      console.log("rip wrong page")
     }
 
 
@@ -290,7 +279,7 @@ if ((location.pathname.substring(location.pathname.lastIndexOf("/") + 1)) == "ad
   });
 }
 else {
-  console.log("kek wrong page")
+  console.log("wrong page")
 }
 
 
