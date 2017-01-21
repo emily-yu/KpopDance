@@ -37,6 +37,12 @@ hr.light{
 	border-color:#fff
 	border-color:#FFFFFF;
 }
+/*hr.space {
+	border-radius: 50%;
+	max-width:200px;
+	border-width: 2px;
+	border-color:#39425A;
+}*/
 
 /*Links*/
 a{
@@ -169,6 +175,14 @@ header{
 }
 .btn-default .badge{
 	color:#fff;background-color:#222
+}
+.nodecor{
+	text-decoration:none; 
+	color:white
+}
+.nodecor:hover{
+	text-decoration:none; 
+	color:white
 }
 
 /*Dark Button*/
@@ -388,7 +402,12 @@ header{
 .titlepadding {
 	padding-top:100px;
 	padding-bottom:100px;
+	font-family: 'Cherry Swash', serif;
+	font-size: 50px; 
+	margin-top:auto; 
+	margin-bottom:10px;
 }
+
 
 /* Outer */
 .popup {
@@ -480,15 +499,69 @@ ul.list-social li.social-facebook a {
 ul.list-social li.social-facebook a:hover {
   background-color: #344e86;
 }
+ul.list-social li.social-facebook img {
+  width:20px; 
+  height:20px;
+}
 ul.list-social li.social-orange a {
   background-color: #5d6c94;
+}
+ul.list-social li.social-orange img {
+  width:20px; 
+  height:20px;
 }
 ul.list-social li.social-orange a:hover {
   background-color: #d73925;
 }
 /* end social buttons */
 
+.images {
+	border-radius: 50%;
+}
 
+/* board section */
+.sametbh > div > h2 {
+	font-size: 22px;
+}
+.sametbh > hr {
+	border-radius: 50%;
+	max-width:200px;
+	border-width: 2px;
+	border-color:#39425A;
+}
+.sametbh > h2 {
+	font-size:30px; 
+	margin-bottom:10px; 
+	margin-left:2%; 
+	margin-right:2%
+}
+
+/*info section*/
+.bg-same > div > div > h2 {
+	color: #000000;
+}
+.bg-same > div > div > p {
+	color: #000000;
+}
+.bg-same > div > div .col-sm-4 {
+	margin-top:65px;
+}
+
+.password {
+	margin-bottom: 20px;
+}
+
+.footertbh{
+	color:#FFFFFF;
+	text-align: center
+}
+.footertbh > p > a {
+	color: #FFFFFF;
+}
+
+.videosection {
+	margin-top:20px;
+}
 
 ::-moz-selection{
 	color:#fff;text-shadow:none;background:#222
