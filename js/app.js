@@ -152,7 +152,7 @@ $(function() {
 
       FBpostRef.on('value', snap =>{
       var postRef = firebase.database().ref().child("post");
-      for (i = 1; i < (snap.val()+1); i++) {  // goes from 1- (FBpostRef.value - 1) - iterates through all post key
+      for (i = 3; i < (snap.val()+1); i++) {  // goes from 3- (FBpostRef.value - 1) - iterates through all post key
         const innerRef = postRef.child(i);
         // super slow feelsbad
         innerRef.once('value', snap =>{
